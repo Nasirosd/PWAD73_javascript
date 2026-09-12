@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function prime(n) {
+            if (n === 1) {
+                return ("not prime num")
+            }
+            else if (n === 2) {
+                return (" prime num")
+
+
+            } else {
+                for (let x = 2; n < x; x++); {
+                    if (n % x === 0) {
+                        return (" not prime num")
+                    }
+                    
+                }
+                return ("  prime num")
+            }
+
+
+
+        }
+
+
+
+
+
+        document.write(prime(10))
+
+    </script>
+</body>
+
+</html>

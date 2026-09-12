@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // Get input from user
+    let num1 = parseFloat(prompt("Enter number 1: "));
+    let num2 = parseFloat(prompt("Enter number 2: "));
+    let num3 = parseFloat(prompt("Enter number 3: "));
+    
+    // Find MAXIMUM
+    if(num1 >= num2 && num1 >= num3){
+        var maxNumber = num1;
+    }else if (num2 >= num1 && num2 >= num3){
+        var maxNumber = num2; 
+    } else{
+        var maxNumber = num3; 
+    }
+    
+    // Find MINIMUM
+    if(num1 <= num2 && num1 <= num3){
+        var minNumber = num1;
+    }else if (num2 <= num1 && num2 <= num3){
+        var minNumber = num2; 
+    } else{
+        var minNumber = num3; 
+    }
+    
+    // Find MEDIAN (middle value)
+    let arr = [num1, num2, num3];
+    arr.sort((a, b) => a - b);
+    var medianNumber = arr[1];
+    
+    // Display Results
+    document.write("<h2>Results:</h2>");
+    document.write("Numbers: " + num1 + ", " + num2 + ", " + num3 + "<br>");
+    document.write("Sorted: " + arr + "<br><br>");
+    document.write("<b>Maximum: </b>" + maxNumber + "<br>");
+    document.write("<b>Minimum: </b>" + minNumber + "<br>");
+    document.write("<b>Median: </b>" + medianNumber);
+

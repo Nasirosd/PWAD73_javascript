@@ -1,23 +1,701 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script>
-        function oddOrEven(){
-            let number= prompt("plese enter number:");
-            number=parseInt(number);
-            if (number % 2 === 0){
-                alert("your provied number "+ number +" is even ");
-            } else{
-                alert("your provied number "+ number +" is odd ");
-            }
-            
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="StayPilot hotel booking management system">
+    <title>StayPilot | Hotel booking management system</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --ink: #19332d;
+            --green: #1d624f;
+            --gold: #c38b42;
+            --cream: #f7f5ef;
+            --paper: #fffdf8;
+            --mint: #dcece3;
+            --muted: #6c7e77;
+            --line: #dce6df;
         }
-    </script>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--cream);
+            font-family: "DM Sans", sans-serif;
+        }
+
+        .serif {
+            font-family: "Playfair Display", serif;
+        }
+
+        .top-strip {
+            background: var(--ink);
+            color: #dce9e1;
+            font-size: .76rem;
+            letter-spacing: .04em;
+        }
+
+        .top-strip span {
+            color: #9ebbb0;
+        }
+
+        .navbar {
+            background: rgba(255, 253, 248, .96);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .navbar-brand {
+            color: var(--ink);
+            font-weight: 700;
+            letter-spacing: -.04em;
+            font-size: 1.2rem;
+        }
+
+        .brand-mark {
+            width: 32px;
+            height: 32px;
+            display: inline-grid;
+            place-items: center;
+            color: #fff;
+            background: var(--gold);
+            border-radius: 50% 50% 50% 8px;
+            transform: rotate(-45deg);
+        }
+
+        .brand-mark i {
+            transform: rotate(45deg);
+        }
+
+        .navbar .nav-link {
+            color: #60726c;
+            font-size: .88rem;
+            margin: 0 .55rem;
+        }
+
+        .navbar .nav-link:hover {
+            color: var(--green);
+        }
+
+        .btn {
+            border-radius: 4px;
+            font-weight: 600;
+            padding: .75rem 1.15rem;
+        }
+
+        .btn-success {
+            --bs-btn-bg: var(--green);
+            --bs-btn-border-color: var(--green);
+            --bs-btn-hover-bg: #154b3e;
+            --bs-btn-hover-border-color: #154b3e;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: #fff;
+        }
+
+        .btn-gold:hover {
+            background: #a9702e;
+            border-color: #a9702e;
+            color: #fff;
+        }
+
+        .btn-outline-success {
+            --bs-btn-color: var(--green);
+            --bs-btn-border-color: #aac4b7;
+            --bs-btn-hover-bg: var(--green);
+            --bs-btn-hover-border-color: var(--green);
+        }
+
+        .hero {
+            background: var(--paper);
+            padding: 5.8rem 0 6rem;
+            overflow: hidden;
+        }
+
+        .eyebrow {
+            color: var(--gold);
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        h1,
+        h2,
+        h3 {
+            letter-spacing: -.045em;
+        }
+
+        h1 {
+            font-size: clamp(2.8rem, 5.5vw, 4.55rem);
+            line-height: 1.04;
+        }
+
+        h2 {
+            font-size: clamp(2.3rem, 4vw, 3.4rem);
+            line-height: 1.08;
+        }
+
+        .hero-copy {
+            color: var(--muted);
+            font-size: 1.08rem;
+            line-height: 1.75;
+            max-width: 530px;
+        }
+
+        .hero-note strong {
+            display: block;
+            color: var(--ink);
+            font-size: 1.45rem;
+        }
+
+        .hero-note span {
+            color: var(--muted);
+            font-size: .77rem;
+        }
+
+        .hero-image {
+            min-height: 420px;
+            position: relative;
+        }
+
+        .hero-image>img {
+            width: 83%;
+            height: 390px;
+            margin-left: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: 150px 8px 8px 8px;
+            box-shadow: 0 24px 70px rgba(24, 48, 43, .18);
+        }
+
+        .reservation-card {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: min(250px, 80%);
+            background: var(--paper);
+            border: 1px solid var(--line);
+            box-shadow: 0 18px 45px rgba(24, 48, 43, .14);
+        }
+
+        .reservation-card .small-label {
+            color: var(--muted);
+            font-size: .66rem;
+            letter-spacing: .11em;
+        }
+
+        .reservation-row {
+            border-top: 1px solid var(--line);
+            font-size: .75rem;
+        }
+
+        .reservation-row b {
+            color: var(--green);
+        }
+
+        .trusted {
+            border-block: 1px solid var(--line);
+            color: #87958f;
+            font-size: .7rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .trusted-brands {
+            color: #73837d;
+            font-size: 1rem;
+            letter-spacing: .02em;
+        }
+
+        .section-space {
+            padding: 6.5rem 0;
+        }
+
+        .section-copy {
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 430px;
+        }
+
+        .feature-card {
+            height: 100%;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            padding: 2rem 1.7rem;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 35px rgba(24, 48, 43, .09);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            color: var(--green);
+            background: var(--mint);
+            border-radius: 50%;
+            font-size: 1.25rem;
+        }
+
+        .feature-card p,
+        .step p {
+            color: var(--muted);
+            font-size: .88rem;
+            line-height: 1.7;
+        }
+
+        .platform {
+            background: var(--mint);
+        }
+
+        .dashboard {
+            background: var(--paper);
+            border: 1px solid #c7dbd1;
+            box-shadow: 12px 18px 45px rgba(24, 48, 43, .1);
+        }
+
+        .chart-box {
+            border: 1px solid var(--line);
+        }
+
+        .bar {
+            height: 140px;
+            display: flex;
+            align-items: end;
+            gap: .65rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .bar i {
+            flex: 1;
+            background: #9bc5ad;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .bar i:nth-child(2),
+        .bar i:nth-child(5) {
+            background: var(--gold);
+        }
+
+        .bar i:nth-child(1) {
+            height: 43%;
+        }
+
+        .bar i:nth-child(2) {
+            height: 76%;
+        }
+
+        .bar i:nth-child(3) {
+            height: 59%;
+        }
+
+        .bar i:nth-child(4) {
+            height: 88%;
+        }
+
+        .bar i:nth-child(5) {
+            height: 73%;
+        }
+
+        .bar i:nth-child(6) {
+            height: 96%;
+        }
+
+        .stat {
+            background: #f5f7f1;
+        }
+
+        .stat small {
+            color: var(--muted);
+            font-size: .63rem;
+            letter-spacing: .08em;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.45rem;
+        }
+
+        .step-number {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border: 1px solid #a9c5b7;
+            border-radius: 50%;
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .cta {
+            background: var(--green);
+            color: #fff;
+        }
+
+        .cta p {
+            color: #bad0c4;
+        }
+
+        footer {
+            background: var(--ink);
+            color: #dce8e0;
+            font-size: .78rem;
+        }
+
+        footer span {
+            color: #91aaa0;
+        }
+
+        @media (max-width: 991px) {
+            .hero {
+                padding-top: 4rem;
+            }
+
+            .hero-image {
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .hero {
+                padding-block: 3.5rem;
+            }
+
+            .hero-image {
+                min-height: 350px;
+            }
+
+            .hero-image>img {
+                height: 310px;
+                width: 88%;
+            }
+
+            .section-space {
+                padding-block: 4.5rem;
+            }
+
+            .trusted-brands {
+                font-size: .78rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-   <button onclick="oddOrEven()"> one check  numbder is even or odd</button> 
+    <div class="top-strip py-2 d-none d-md-block">
+        <div class="container d-flex justify-content-between"><span>Hotel commerce, made beautifully
+                simple</span><span>Sales: +1 800 555 0199 &nbsp; | &nbsp; Support center</span></div>
+    </div>
+    <nav class="navbar navbar-expand-lg sticky-top py-3" aria-label="Main navigation">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#home"><span class="brand-mark"><i
+                        class="bi bi-building"></i></span> staypilot</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav mx-auto my-3 my-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="#features">Solutions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#platform">Platform</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#how-it-works">How it works</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Resources</a></li>
+                </ul><button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#demoModal">Book a demo <i
+                        class="bi bi-arrow-right ms-1"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="home">
+        <section class="hero">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <div class="eyebrow mb-3">The modern hotel booking system</div>
+                        <h1 class="serif mb-4">Every booking. One beautiful command center.</h1>
+                        <p class="hero-copy mb-4">Give your team the clarity to sell more rooms, delight every guest,
+                            and run your property with less busywork.</p>
+                        <div class="d-flex flex-wrap gap-3 mb-5"><button class="btn btn-gold" data-bs-toggle="modal"
+                                data-bs-target="#demoModal">See StayPilot in action <i
+                                    class="bi bi-arrow-right ms-1"></i></button><a class="btn btn-outline-success"
+                                href="#features">Explore features</a></div>
+                        <div class="hero-note d-flex gap-4">
+                            <div><strong>32%</strong><span>more direct bookings</span></div>
+                            <div><strong>4.9/5</strong><span>partner rating</span></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hero-image"><img
+                                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=85"
+                                alt="Bright modern hotel room">
+                            <div class="reservation-card rounded-3 p-3">
+                                <div class="small-label">LIVE RESERVATION</div>
+                                <h3 class="h6 mt-2 mb-3">New direct booking</h3>
+                                <div class="reservation-row d-flex justify-content-between py-2"><span>Amara
+                                        Williams</span><b>Confirmed</b></div>
+                                <div class="reservation-row d-flex justify-content-between py-2"><span>Jun 18 - 22,
+                                        2026</span><span>$1,248</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="trusted py-4">
+            <div class="container text-center">Trusted by independent hotels and groups in 40+ countries<div
+                    class="trusted-brands d-flex flex-wrap justify-content-around gap-3 mt-3 fw-bold"><span>THE
+                        WILLOW</span><span>nocturne</span><span>HABITAT</span><span>OAK &amp;
+                        IVY</span><span>sumon</span></div>
+
+
+                        
+            </div>
+        </section>
+
+        <section class="section-space" id="features">
+            <div class="container">
+                <div class="row justify-content-between align-items-end mb-5">
+                    <div class="col-lg-6">
+                        <div class="eyebrow mb-3">One connected system</div>
+                        <h2 class="serif mb-0">Less admin.<br>More hospitality.</h2>
+                    </div>
+                    <div class="col-lg-4 mt-3 mt-lg-0">
+                        <p class="section-copy mb-0">Everything you need to turn lookers into bookers and bookings into
+                            lifelong guests, all in one place.</p>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6 col-lg-4">
+                        <article class="feature-card">
+                            <div class="feature-icon mb-4"><i class="bi bi-calendar2-check"></i></div>
+                            <h3 class="h5 serif">Central reservation desk</h3>
+                            <p class="mb-0">See every booking, modification, room, and rate in one calm, easy-to-read
+                                workspace.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="feature-card">
+                            <div class="feature-icon mb-4"><i class="bi bi-globe2"></i></div>
+                            <h3 class="h5 serif">Direct booking engine</h3>
+                            <p class="mb-0">Convert more traffic with a fast, mobile-first booking journey that feels
+                                like your brand.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="feature-card">
+                            <div class="feature-icon mb-4"><i class="bi bi-arrow-repeat"></i></div>
+                            <h3 class="h5 serif">Live channel manager</h3>
+                            <p class="mb-0">Keep rates and inventory perfectly synced across every channel without
+                                spreadsheet gymnastics.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="feature-card">
+                            <div class="feature-icon mb-4"><i class="bi bi-person-heart"></i></div>
+                            <h3 class="h5 serif">Guest profiles</h3>
+                            <p class="mb-0">Build a richer picture of every guest and create stays that feel
+                                thoughtfully personal.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="feature-card">
+                            <div class="feature-icon mb-4"><i class="bi bi-graph-up-arrow"></i></div>
+                            <h3 class="h5 serif">Revenue intelligence</h3>
+                            <p class="mb-0">Spot demand patterns quickly with clear reports built for confident
+                                decisions.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <article class="feature-card">
+                            <div class="feature-icon mb-4"><i class="bi bi-check2-circle"></i></div>
+                            <h3 class="h5 serif">Effortless operations</h3>
+                            <p class="mb-0">Automate the handoffs between front desk, housekeeping, and management.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="platform section-space" id="platform">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-4">
+                        <div class="eyebrow mb-3">A clearer view of your business</div>
+                        <h2 class="serif">Know what's happening. Act on what's next.</h2>
+                        <p class="section-copy mb-4">StayPilot brings your most important numbers into focus, so your
+                            team can spend less time finding answers and more time making smart moves.</p><button
+                            class="btn btn-success" data-bs-toggle="modal" data-bs-target="#demoModal">Tour the platform
+                            <i class="bi bi-arrow-right ms-1"></i></button>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="dashboard rounded-3 p-3 p-md-4">
+                            <div class="d-flex justify-content-between align-items-center border-bottom pb-3">
+                                <strong>Property overview</strong><span class="small text-secondary">Last 30 days <i
+                                        class="bi bi-chevron-down"></i></span></div>
+                            <div class="row g-3 pt-3">
+                                <div class="col-md-7">
+                                    <div class="chart-box rounded-2 p-3">
+                                        <div class="small text-secondary fw-bold mb-3">ROOM REVENUE</div>
+                                        <div class="bar"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                                        <div class="d-flex justify-content-between text-secondary small mt-2">
+                                            <span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="d-grid gap-2">
+                                        <div class="stat rounded-2 p-3"><small>OCCUPANCY</small><strong>84.6%</strong>
+                                        </div>
+                                        <div class="stat rounded-2 p-3"><small>AVERAGE DAILY
+                                                RATE</small><strong>$218</strong></div>
+                                        <div class="stat rounded-2 p-3"><small>DIRECT
+                                                BOOKINGS</small><strong>38.2%</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-space" id="how-it-works">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <div class="eyebrow mb-3">Simple from day one</div>
+                    <h2 class="serif">From setup to smooth stays.</h2>
+                </div>
+                <div class="row g-4 text-center">
+                    <div class="col-md-4">
+                        <div class="step-number mx-auto mb-3">1</div>
+                        <h3 class="h5 serif">Connect your property</h3>
+                        <p class="step mb-0">Bring your rooms, rates, channels, and team into one organized workspace.
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="step-number mx-auto mb-3">2</div>
+                        <h3 class="h5 serif">Customize your flow</h3>
+                        <p class="step mb-0">Choose the automations and guest touchpoints that fit your operation.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="step-number mx-auto mb-3">3</div>
+                        <h3 class="h5 serif">Grow with confidence</h3>
+                        <p class="step mb-0">Use live insights to improve occupancy, revenue, and every guest
+                            experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta section-space text-center" id="contact">
+            <div class="container">
+                <div class="eyebrow mb-3">A better way to stay in control</div>
+                <h2 class="serif mx-auto mb-3" style="max-width: 700px;">Make your next best booking the easiest one.
+                </h2>
+                <p class="mb-4">See how StayPilot fits your property in a 20-minute walkthrough.</p><button
+                    class="btn btn-gold" data-bs-toggle="modal" data-bs-target="#demoModal">Book your personal demo <i
+                        class="bi bi-arrow-right ms-1"></i></button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-4">
+        <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+            <strong>staypilot</strong><span>&copy; 2026 StayPilot. Hotel operations, with a human touch.</span></div>
+    </footer>
+
+    <div class="modal fade" id="demoModal" tabindex="-1" aria-labelledby="demoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-3">
+                <div class="modal-header">
+                    <h2 class="modal-title h4 serif" id="demoModalLabel">Book your StayPilot demo</h2><button
+                        type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="demoForm">
+                    <div class="modal-body">
+                        <p class="text-secondary small">Tell us where to send your personalized walkthrough.</p>
+                        <div class="mb-3"><label class="form-label" for="name">Full name</label><input
+                                class="form-control" id="name" required></div>
+                        <div class="mb-3"><label class="form-label" for="email">Work email</label><input
+                                class="form-control" id="email" type="email" required></div>
+                        <div><label class="form-label" for="property">Property type</label><select class="form-select"
+                                id="property">
+                                <option>Independent hotel</option>
+                                <option>Hotel group</option>
+                                <option>Resort</option>
+                                <option>Vacation rental</option>
+                            </select></div>
+                    </div>
+                    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">Cancel</button><button class="btn btn-success" type="submit">Request
+                            demo</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="successToast" class="toast" role="alert">
+            <div class="toast-header"><i class="bi bi-check-circle-fill text-success me-2"></i><strong
+                    class="me-auto">StayPilot</strong><button type="button" class="btn-close"
+                    data-bs-dismiss="toast"></button></div>
+            <div class="toast-body">Thanks! Our team will contact you shortly.</div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var demoModal = document.getElementById('demoModal');
+        var demoButtons = document.querySelectorAll('[data-bs-target="#demoModal"]');
+        demoButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                demoModal.classList.add('show');
+                demoModal.style.display = 'block';
+                demoModal.removeAttribute('aria-hidden');
+                document.body.classList.add('modal-open');
+            });
+        });
+        demoModal.querySelectorAll('[data-bs-dismiss="modal"]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                demoModal.classList.remove('show');
+                demoModal.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            });
+        });
+        document.getElementById('demoForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            demoModal.classList.remove('show');
+            demoModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+            if (window.bootstrap) {
+                bootstrap.Toast.getOrCreateInstance(document.getElementById('successToast')).show();
+            } else {
+                alert('Thanks! Our team will contact you shortly.');
+            }
+            this.reset();
+        });
+    </script>
 </body>
+
 </html>
