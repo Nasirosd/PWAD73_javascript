@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Output Example</title>
+  </head>
+  <body>
+    <form name="myform">
+      <input type="text" name="name" placeholder="Enter name" /><br />
+      <textarea name="address" placeholder="Enter address"></textarea><br />
+      <input type="email" name="email" placeholder="Enter email" /><br />
+      <input type="button" onclick="addform()" value="SUBMIT" />
+      <input type="button" onclick="addform.close()" name="close" value="close">
+    </form>
+    
+    <div id="show"></div>
+
+    <script>
+      function addform() {
+        let name = document.myform.name.value;
+        let address = document.myform.address.value;
+         let email = document.myform.email.value;
+
+
+        let output = "<div style='color:red; background-color:blue;'>";
+        output += "Name: " + name + "<br>";
+        output += "Address: " + address + "<br>";
+         output += "email: " + email + "<br>";
+        output += "</div>";
+
+        // document.getElementById("show").innerHTML = output;
+        addform=window.open("", "", "height:300,width:400");
+        addform.document.write(output);
+      }
+    </script>
+  </body>
+</html>
