@@ -9,9 +9,26 @@
     <form name="myform">
       <input type="text" name="name" placeholder="Enter name" /><br />
       <textarea name="address" placeholder="Enter address"></textarea><br />
-      <input type="email" name="email" placeholder="Enter email" /><br />
-      <input type="button" onclick="addform()" value="SUBMIT" />
-      <input type="button" onclick="addform.close()" name="close" value="close">
+      <!-- <input type="email" name="email" placeholder="Enter email" /><br /> -->
+       gender <br>
+       <input type="radio" name="gender" value="male">Male
+        <input type="radio" name="gender" value="female">female <br>
+     
+      distric <br>
+      <select name="distric" id=""> 
+        <option  selected disabled value=""> selecl one</option>
+        <option >Dhaka</option>
+        <option >cumilla</option>
+        <option >pabna</option>
+        <option >jhalokathi</option>
+      </select><br> <br>
+       Hobbies <br>
+       <input type="checkbox" class="Hobbies"  value="garden"> garden
+        <input type="checkbox" class="Hobbies"  value="Reading"> Reading
+         <input type="checkbox" class="Hobbies"  value="Footbool"> Footbool
+          <input type="checkbox" class="Hobbies"  value="crickt"> crickt <br>
+       
+      <input type="button" onclick="addform()" value="SUBMIT" /> <br>
     </form>
     
     <div id="show"></div>
@@ -20,13 +37,27 @@
       function addform() {
         let name = document.myform.name.value;
         let address = document.myform.address.value;
-         let email = document.myform.email.value;
+         let gender = document.myform.gender.value;
+         let distric = document.myform.distric.value;
 
+let Hobbies= document.getElementsByClassName(" Hobbies");
+let Hobbiesoutput ="";
+for(let i=0 ; i<Hobbies.length; i++){
+  if(Hobbies[i].checked){
+    Hobbiesoutput+=Hobbies[i].value + ",";
+    
+  }
+
+}
+//console.log(Hobbies);
 
         let output = "<div style='color:red; background-color:blue;'>";
         output += "Name: " + name + "<br>";
         output += "Address: " + address + "<br>";
-         output += "email: " + email + "<br>";
+         output += "gende: " + gender + "<br>";
+         output += "distric: " + distric + "<br>";
+         output += "Hobbie: " + Hobbiesoutput + "<br>";
+         
         output += "</div>";
 
         // document.getElementById("show").innerHTML = output;
